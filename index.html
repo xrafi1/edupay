@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPay - School Payment Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --secondary: #06B6D4;
+            --accent: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --light: #F3F4F6;
+            --dark: #1F2937;
+            --muted: #6B7280;
+            --white: #FFFFFF;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #F9FAFB;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: #0891B2;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(to right, #2563EB, #06B6D4);
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .dashboard {
+            padding: 2rem 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .payment-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-paid {
+            background: #ECFDF5;
+            color: #047857;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #B45309;
+        }
+
+        .status-overdue {
+            background: #FEE2E2;
+            color: #B91C1C;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        th {
+            background: #F9FAFB;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        tr:hover {
+            background: #F9FAFB;
+        }
+
+        .admin-panel {
+            padding: 2rem 0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .mode-toggle {
+            background: var(--dark);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-error {
+            background: #FEE2E2;
+            color: #B91C1C;
+            border: 1px solid #FECACA;
+        }
+
+        .alert-success {
+            background: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .active {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduPay</span>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#" class="active" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="login">Student Login</a></li>
+                    <li><a href="#" data-page="admin">Admin Login</a></li>
+                    <li><a href="#" data-page="about">About</a></li>
+                </ul>
+                <button class="mobile-menu" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page">
+            <div class="hero">
+                <div class="container">
+                    <h1>School Payment Portal</h1>
+                    <p>Manage and track student payments with our easy-to-use platform. Students can check their payment status and admins can manage all payments in one place.</p>
+                    <a href="#" class="btn btn-primary" data-page="login">Student Login</a>
+                    <a href="#" class="btn btn-secondary" data-page="admin">Admin Login</a>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="stats">
+                    <div class="stat-card">
+                        <i class="fas fa-users fa-2x" style="color: var(--primary);"></i>
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle fa-2x" style="color: var(--accent);"></i>
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Payment Completion</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-history fa-2x" style="color: var(--secondary);"></i>
+                        <div class="stat-value">12,548</div>
+                        <div class="stat-label">Transactions Processed</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>How It Works</h2>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3><i class="fas fa-user-graduate" style="color: var(--primary);"></i> For Students</h3>
+                            <p>Login with your roll number and password to view your payment status, check due amounts, and download payment receipts.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3><i class="fas fa-user-shield" style="color: var(--secondary);"></i> For Administrators</h3>
+                            <p>Access the admin panel to search students, update payment records, and generate reports on payment statuses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Login -->
+        <section id="login" class="page hidden">
+            <div class="container">
+                <div class="login-container">
+                    <div id="login-alert"></div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Student Login</h2>
+                            <i class="fas fa-user-graduate fa-2x" style="color: var(--primary);"></i>
+                        </div>
+                        <form id="student-login-form">
+                            <div class="form-group">
+                                <label for="roll-number" class="form-label">Roll Number</label>
+                                <input type="text" id="roll-number" class="form-input" placeholder="Enter your roll number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;" id="student-login-btn">
+                                <span>Login</span>
+                                <span class="loading hidden" id="student-login-loading"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Dashboard -->
+        <section id="student-dashboard" class="page hidden">
+            <div class="container dashboard">
+                <h2>Student Dashboard</h2>
+                <p>Welcome, <span id="student-name">John Doe</span> (Roll No: <span id="student-roll">12345</span>)</p>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <i class="fas fa-wallet fa-2x" style="color: var(--primary);"></i>
+                        <div class="stat-value" id="total-due">₹ 1,500</div>
+                        <div class="stat-label">Total Due</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle fa-2x" style="color: var(--accent);"></i>
+                        <div class="stat-value" id="paid-months">8/12</div>
+                        <div class="stat-label">Months Paid</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock fa-2x" style="color: var(--warning);"></i>
+                        <div class="stat-value" id="pending-payments">2</div>
+                        <div class="stat-label">Pending Payments</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Payment History</h3>
+                        <button class="btn btn-secondary" id="refresh-payments">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="payment-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date Paid</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Login -->
+        <section id="admin" class="page hidden">
+            <div class="container">
+                <div class="login-container">
+                    <div id="admin-alert"></div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Admin Login</h2>
+                            <i class="fas fa-user-shield fa-2x" style="color: var(--secondary);"></i>
+                        </div>
+                        <form id="admin-login-form">
+                            <div class="form-group">
+                                <label for="admin-username" class="form-label">Username</label>
+                                <input type="text" id="admin-username" class="form-input" placeholder="Enter admin username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-password" class="form-label">Password</label>
+                                <input type="password" id="admin-password" class="form-input" placeholder="Enter admin password" required>
+                            </div>
+                            <button type="submit" class="btn btn-secondary" style="width: 100%;" id="admin-login-btn">
+                                <span>Login</span>
+                                <span class="loading hidden" id="admin-login-loading"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="admin-dashboard" class="page hidden">
+            <div class="container admin-panel">
+                <h2>Admin Dashboard</h2>
+                <p>Welcome, Admin</p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Search Student</h3>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" class="form-input" id="search-roll" placeholder="Enter student roll number">
+                        <button class="btn btn-primary" id="search-btn">Search</button>
+                    </div>
+                    <div id="search-results">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Student Payment Records</h3>
+                        <button class="btn btn-secondary">Add New Student</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Class</th>
+                                    <th>Jan</th>
+                                    <th>Feb</th>
+                                    <th>Mar</th>
+                                    <th>Apr</th>
+                                    <th>Total Due</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12345</td>
+                                    <td>John Doe</td>
+                                    <td>10-A</td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td><span class="payment-status status-pending">Pending</span></td>
+                                    <td><span class="payment-status status-overdue">Overdue</span></td>
+                                    <td>₹ 3,000</td>
+                                    <td><button class="btn btn-primary">Update</button></td>
+                                </tr>
+                                <tr>
+                                    <td>12346</td>
+                                    <td>Jane Smith</td>
+                                    <td>10-B</td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td><span class="payment-status status-paid">Paid</span></td>
+                                    <td>₹ 0</td>
+                                    <td><button class="btn btn-primary">Update</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page hidden">
+            <div class="container">
+                <div class="card">
+                    <h2>About EduPay</h2>
+                    <p>EduPay is a comprehensive school payment management system designed to simplify the process of tracking and managing student payments.</p>
+                    
+                    <h3>Features</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Secure student and admin login portals</li>
+                        <li>Real-time payment status tracking</li>
+                        <li>Payment history and receipt generation</li>
+                        <li>Admin management of student records</li>
+                        <li>Responsive design for all devices</li>
+                    </ul>
+                    
+                    <h3>Contact</h3>
+                    <p>For support, please contact the school administration at support@edupay.edu or call (555) 123-4567.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-heading">EduPay</h3>
+                <p>Simplifying school payment management for students and administrators.</p>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul style="list-style: none;">
+                    <li><a href="#" data-page="home" style="color: var(--white);">Home</a></li>
+                    <li><a href="#" data-page="login" style="color: var(--white);">Student Login</a></li>
+                    <li><a href="#" data-page="admin" style="color: var(--white);">Admin Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-heading">Contact</h3>
+                <p>Email: support@edupay.edu</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="container" style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #374151;">
+            <p>&copy; 2023 EduPay. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration - Replace with your Apps Script Web App URL
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+        // Global variables
+        let currentStudent = null;
+
+        // Page Navigation
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.add('hidden');
+                });
+                
+                // Show target page
+                document.getElementById(pageId).classList.remove('hidden');
+                
+                // Update active nav link
+                document.querySelectorAll('nav a').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                
+                // Add active class to clicked nav link
+                if (link.tagName === 'A') {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Student Login Form Submission
+        document.getElementById('student-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const rollNo = document.getElementById('roll-number').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('student-login-btn');
+            const loading = document.getElementById('student-login-loading');
+            
+            // Show loading state
+            loginBtn.querySelector('span').classList.add('hidden');
+            loading.classList.remove('hidden');
+            loginBtn.disabled = true;
+            
+            try {
+                // Call Apps Script backend
+                const response = await callAppsScript('studentLogin', { rollNo, password });
+                
+                if (response.status === 'success') {
+                    // Store student data
+                    currentStudent = response;
+                    
+                    // Update student dashboard
+                    document.getElementById('student-name').textContent = response.name;
+                    document.getElementById('student-roll').textContent = response.rollNo;
+                    
+                    // Load student data
+                    await loadStudentData(rollNo);
+                    
+                    // Show student dashboard
+                    document.querySelectorAll('.page').forEach(page => {
+                        page.classList.add('hidden');
+                    });
+                    document.getElementById('student-dashboard').classList.remove('hidden');
+                    
+                    // Clear login form
+                    document.getElementById('student-login-form').reset();
+                } else {
+                    showAlert('login-alert', 'error', response.error || 'Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('login-alert', 'error', 'Login failed. Please try again.');
+            } finally {
+                // Hide loading state
+                loginBtn.querySelector('span').classList.remove('hidden');
+                loading.classList.add('hidden');
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Admin Login Form Submission
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            const loginBtn = document.getElementById('admin-login-btn');
+            const loading = document.getElementById('admin-login-loading');
+            
+            // Show loading state
+            loginBtn.querySelector('span').classList.add('hidden');
+            loading.classList.remove('hidden');
+            loginBtn.disabled = true;
+            
+            try {
+                // Call Apps Script backend
+                const response = await callAppsScript('adminLogin', { username, password });
+                
+                if (response.status === 'success') {
+                    // Show admin dashboard
+                    document.querySelectorAll('.page').forEach(page => {
+                        page.classList.add('hidden');
+                    });
+                    document.getElementById('admin-dashboard').classList.remove('hidden');
+                    
+                    // Clear login form
+                    document.getElementById('admin-login-form').reset();
+                } else {
+                    showAlert('admin-alert', 'error', response.error || 'Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Admin login error:', error);
+                showAlert('admin-alert', 'error', 'Login failed. Please try again.');
+            } finally {
+                // Hide loading state
+                loginBtn.querySelector('span').classList.remove('hidden');
+                loading.classList.add('hidden');
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Refresh payments button
+        document.getElementById('refresh-payments').addEventListener('click', async () => {
+            if (currentStudent) {
+                await loadStudentData(currentStudent.rollNo);
+            }
+        });
+
+        // Search student button
+        document.getElementById('search-btn').addEventListener('click', async () => {
+            const rollNo = document.getElementById('search-roll').value;
+            if (!rollNo) {
+                showAlert('search-results', 'error', 'Please enter a roll number');
+                return;
+            }
+            
+            try {
+                const response = await callAppsScript('searchStudent', { rollNo });
+                
+                if (response.status === 'success') {
+                    displaySearchResults(response);
+                } else {
+                    showAlert('search-results', 'error', response.error || 'Student not found');
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                showAlert('search-results', 'error', 'Search failed. Please try again.');
+            }
+        });
+
+        // Load student data and payment history
+        async function loadStudentData(rollNo) {
+            try {
+                const response = await callAppsScript('getStudentData', { rollNo });
+                
+                if (response.status === 'success') {
+                    // Update summary
+                    document.getElementById('total-due').textContent = `₹ ${response.summary.totalDue}`;
+                    document.getElementById('paid-months').textContent = `${response.summary.paidMonths}/${response.summary.totalMonths}`;
+                    document.getElementById('pending-payments').textContent = response.summary.pendingPayments;
+                    
+                    // Update payment history table
+                    const tableBody = document.querySelector('#payment-history-table tbody');
+                    tableBody.innerHTML = '';
+                    
+                    response.paymentHistory.forEach(payment => {
+                        const row = document.createElement('tr');
+                        
+                        row.innerHTML = `
+                            <td>${payment.month}</td>
+                            <td>₹ ${payment.amount}</td>
+                            <td><span class="payment-status status-${payment.status.toLowerCase()}">${payment.status}</span></td>
+                            <td>${payment.datePaid || '-'}</td>
+                            <td>
+                                ${payment.status === 'Paid' ? 
+                                    `<button class="btn btn-secondary">Download Receipt</button>` : 
+                                    `<button class="btn btn-primary">Pay Now</button>`
+                                }
+                            </td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    showAlert('student-dashboard', 'error', response.error || 'Failed to load data');
+                }
+            } catch (error) {
+                console.error('Data loading error:', error);
+                showAlert('student-dashboard', 'error', 'Failed to load data. Please try again.');
+            }
+        }
+
+        // Display search results
+        function displaySearchResults(data) {
+            const resultsContainer = document.getElementById('search-results');
+            
+            resultsContainer.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Student Information</h3>
+                    </div>
+                    <p><strong>Name:</strong> ${data.studentInfo.name}</p>
+                    <p><strong>Roll No:</strong> ${data.studentInfo.rollNo}</p>
+                    <p><strong>Class:</strong> ${data.studentInfo.class}</p>
+                    <p><strong>Email:</strong> ${data.studentInfo.email}</p>
+                    <p><strong>Phone:</strong> ${data.studentInfo.phone}</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Payment History</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Year</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date Paid</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.paymentHistory.map(payment => `
+                                    <tr>
+                                        <td>${getMonthName(payment.month)}</td>
+                                        <td>${payment.year}</td>
+                                        <td>₹ ${payment.amount}</td>
+                                        <td><span class="payment-status status-${payment.status.toLowerCase()}">${payment.status}</span></td>
+                                        <td>${payment.datePaid || '-'}</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="updatePayment('${data.studentInfo.rollNo}', ${payment.month}, ${payment.year}, 'Paid')">
+                                                Mark Paid
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update payment status (for admin)
+        async function updatePayment(rollNo, month, year, status) {
+            try {
+                const response = await callAppsScript('updatePayment', { 
+                    rollNo, 
+                    month, 
+                    year, 
+                    status 
+                });
+                
+                if (response.status === 'success') {
+                    showAlert('search-results', 'success', 'Payment status updated successfully');
+                    // Refresh the search results
+                    document.getElementById('search-btn').click();
+                } else {
+                    showAlert('search-results', 'error', response.error || 'Failed to update payment');
+                }
+            } catch (error) {
+                console.error('Update payment error:', error);
+                showAlert('search-results', 'error', 'Failed to update payment. Please try again.');
+            }
+        }
+
+        // Call Apps Script backend
+        async function callAppsScript(action, params) {
+            const url = new URL(APP_SCRIPT_URL);
+            url.searchParams.append('action', action);
+            
+            // Add all parameters to URL
+            for (const key in params) {
+                url.searchParams.append(key, params[key]);
+            }
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                redirect: 'follow'
+            });
+            
+            return await response.json();
+        }
+
+        // Show alert message
+        function showAlert(containerId, type, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <div class="alert alert-${type}">
+                    ${message}
+                </div>
+            `;
+            
+            // Auto-remove alert after 5 seconds
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Get month name from number
+        function getMonthName(monthNumber) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+            return months[monthNumber - 1];
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu').addEventListener('click', () => {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '60px';
+            navMenu.style.right = '20px';
+            navMenu.style.background = 'var(--primary)';
+            navMenu.style.padding = '1rem';
+            navMenu.style.borderRadius = '0.5rem';
+            navMenu.style.gap = '1rem';
+        });
+
+        // Make updatePayment function available globally
+        window.updatePayment = updatePayment;
+    </script>
+</body>
+</html>
