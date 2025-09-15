@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Our Cause - A Donation Page</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Use the Inter font family defined in the Google Fonts link */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom style for active amount button */
+        .amount-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">Make a Difference</h1>
+            <a href="#donate-section" class="bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-indigo-700 transition-all duration-300">Donate</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white">
+            <div class="container mx-auto px-6 py-16 md:py-24 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <img src="https://placehold.co/1200x600/6366f1/ffffff?text=Join+Our+Mission" alt="A collage of happy people benefiting from donations" class="w-full h-auto object-cover rounded-2xl shadow-xl mb-10">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">Your Support Can Change Lives</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                        We are on a mission to [your cause, e.g., provide education to underprivileged children, support local artisans, etc.]. Your contribution, no matter the size, provides hope and creates a tangible impact. Join us in building a better future for our community.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section id="donate-section" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-2xl">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">Make a Generous Donation</h3>
+                    <p class="text-gray-500 mb-8">Choose an amount or enter your own.</p>
+
+                    <!-- Amount Selection Buttons -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <button class="amount-btn w-full bg-slate-100 text-gray-800 font-bold py-4 px-4 rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 text-lg" data-amount="250">₹250</button>
+                        <button class="amount-btn w-full bg-slate-100 text-gray-800 font-bold py-4 px-4 rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 text-lg" data-amount="500">₹500</button>
+                        <button class="amount-btn w-full bg-slate-100 text-gray-800 font-bold py-4 px-4 rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 text-lg" data-amount="1000">₹1000</button>
+                        <button class="amount-btn w-full bg-slate-100 text-gray-800 font-bold py-4 px-4 rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 text-lg" data-amount="2500">₹2500</button>
+                    </div>
+
+                    <!-- Custom Amount Input -->
+                    <div class="mb-8">
+                        <input type="number" id="custom-amount" class="text-center shadow-inner appearance-none border-2 border-slate-200 rounded-lg w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg" placeholder="Or Enter Custom Amount (₹)">
+                    </div>
+
+                    <!-- QR Code and Call to Action -->
+                    <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 bg-slate-50 p-8 rounded-xl">
+                        <!-- QR Code -->
+                        <div id="qr-code-container" class="text-center">
+                            
+                            <img id="qr-code" src="" alt="Scan to Pay with UPI" class="mx-auto rounded-lg shadow-md border-4 border-white">
+                            <p class="text-sm text-gray-500 mt-2 font-medium">Scan with any UPI app</p>
+                        </div>
+                        
+                        <!-- CTA Button -->
+                        <div class="text-center lg:text-left">
+                            <p class="text-gray-600 mb-4 font-medium">Pay securely using your favorite UPI app.</p>
+                            <a id="upi-payment-link" href="upi://pay?pa=rafiur@superyes&pn=Rafi" class="inline-flex items-center justify-center bg-indigo-600 text-white font-bold text-xl py-4 px-12 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-lg transform hover:scale-105">
+                                <svg class="w-6 h-6 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                                <span id="donate-button-text">Donate Now</span>
+                            </a>
+                            <p class="text-xs text-gray-500 mt-3">Pay To: Rafi (rafiur@superyes)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="text-lg font-semibold">Thank you for your kindness and support!</p>
+            <p class="mt-2 text-gray-400">&copy; 2025 Our Cause. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for dynamic functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const amountButtons = document.querySelectorAll('.amount-btn');
+            const customAmountInput = document.getElementById('custom-amount');
+            const upiLink = document.getElementById('upi-payment-link');
+            const qrCodeImg = document.getElementById('qr-code');
+            const donateButtonText = document.getElementById('donate-button-text');
+            
+            // Base UPI URL provided by the user
+            const baseUpiUrl = 'upi://pay?pa=rafiur@superyes&pn=Rafi&cu=INR';
+
+            // Function to update payment links and QR code
+            function updatePaymentDetails(amount) {
+                let finalUpiUrl = baseUpiUrl;
+                const amountValue = parseFloat(amount);
+
+                if (amountValue && amountValue > 0) {
+                    finalUpiUrl += `&am=${amountValue.toFixed(2)}`;
+                    donateButtonText.textContent = `Donate ₹${amountValue.toFixed(2)}`;
+                } else {
+                    donateButtonText.textContent = 'Donate Now';
+                }
+
+                // Update the CTA button's link
+                upiLink.href = finalUpiUrl;
+
+                // Update the QR code image using a free API
+                const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(finalUpiUrl)}&qzone=1`;
+                qrCodeImg.src = qrApiUrl;
+                qrCodeImg.alt = `Scan to pay ${amountValue ? '₹' + amountValue.toFixed(2) : 'Rafi'}`;
+            }
+
+            // Add click listeners to preset amount buttons
+            amountButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove 'active' class from all buttons
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add 'active' class to the clicked button
+                    button.classList.add('active');
+
+                    const amount = button.dataset.amount;
+                    customAmountInput.value = ''; // Clear custom input field
+                    updatePaymentDetails(amount);
+                });
+            });
+
+            // Add input listener to the custom amount field
+            customAmountInput.addEventListener('input', () => {
+                // Remove 'active' class from all buttons when user types
+                amountButtons.forEach(btn => btn.classList.remove('active'));
+                
+                const amount = customAmountInput.value;
+                updatePaymentDetails(amount);
+            });
+
+            // Initial call on page load to generate the default QR code
+            updatePaymentDetails(null);
+        });
+    </script>
+
+</body>
+</html>
+
+
